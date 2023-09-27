@@ -106,39 +106,8 @@ WENN SIE AUF DIE MOEGLICHKEIT EINES SOLCHEN SCHADENS HINGEWIESEN WORDEN SIND.
             </plugins>
         </pluginManagement>
       <plugins>
-          <!-- to activate this plugin, you have to create a file changelog.mustache in the directory where the pom.xml is located with similar content to this:
-          # Changelog
-
-Changelog of this project.
-
-{{#tags}}
- {{#issues}}
-  {{#hasIssue}}
-   {{#hasLink}}
-   {{/hasLink}}
-   {{^hasLink}}
-   {{/hasLink}}
-  {{/hasIssue}}
-  {{^hasIssue}}
-  {{/hasIssue}}
-
-  {{#commits}}
-**{{{messageTitle}}}**
-
-{{#messageBodyItems}}
- * {{.}}
-{{/messageBodyItems}}
-
-[{{hash}}](https://github.com/<user>/<project>/commit/{{hash}}) {{authorName}} *{{commitTime}}*
-
-  {{/commits}}
-
- {{/issues}}
-{{/tags}}
-
-          -->
           <!-- https://github.com/tomasbjerre/git-changelog-maven-plugin/blob/master/git-changelog-maven-plugin-example/pom.xml -->
-          <!--plugin>
+          <plugin>
             <groupId>se.bjurr.gitchangelog</groupId>
             <artifactId>git-changelog-maven-plugin</artifactId>
             <version>1.60</version>
@@ -156,7 +125,7 @@ Changelog of this project.
                 </configuration>
               </execution>
             </executions>
-          </plugin-->
+          </plugin>
           <plugin>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>exec-maven-plugin</artifactId>
