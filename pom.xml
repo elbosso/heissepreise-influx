@@ -1,0 +1,283 @@
+<!--
+Copyright (c) 2012-2020.
+
+Juergen Key. Alle Rechte vorbehalten.
+
+Weiterverbreitung und Verwendung in nichtkompilierter oder kompilierter Form,
+mit oder ohne Veraenderung, sind unter den folgenden Bedingungen zulaessig:
+
+   1. Weiterverbreitete nichtkompilierte Exemplare muessen das obige Copyright,
+die Liste der Bedingungen und den folgenden Haftungsausschluss im Quelltext
+enthalten.
+   2. Weiterverbreitete kompilierte Exemplare muessen das obige Copyright,
+die Liste der Bedingungen und den folgenden Haftungsausschluss in der
+Dokumentation und/oder anderen Materialien, die mit dem Exemplar verbreitet
+werden, enthalten.
+   3. Weder der Name des Autors noch die Namen der Beitragsleistenden
+duerfen zum Kennzeichnen oder Bewerben von Produkten, die von dieser Software
+abgeleitet wurden, ohne spezielle vorherige schriftliche Genehmigung verwendet
+werden.
+
+DIESE SOFTWARE WIRD VOM AUTOR UND DEN BEITRAGSLEISTENDEN OHNE
+JEGLICHE SPEZIELLE ODER IMPLIZIERTE GARANTIEN ZUR VERFUEGUNG GESTELLT, DIE
+UNTER ANDEREM EINSCHLIESSEN: DIE IMPLIZIERTE GARANTIE DER VERWENDBARKEIT DER
+SOFTWARE FUER EINEN BESTIMMTEN ZWECK. AUF KEINEN FALL IST DER AUTOR
+ODER DIE BEITRAGSLEISTENDEN FUER IRGENDWELCHE DIREKTEN, INDIREKTEN,
+ZUFAELLIGEN, SPEZIELLEN, BEISPIELHAFTEN ODER FOLGENDEN SCHAEDEN (UNTER ANDEREM
+VERSCHAFFEN VON ERSATZGUETERN ODER -DIENSTLEISTUNGEN; EINSCHRAENKUNG DER
+NUTZUNGSFAEHIGKEIT; VERLUST VON NUTZUNGSFAEHIGKEIT; DATEN; PROFIT ODER
+GESCHAEFTSUNTERBRECHUNG), WIE AUCH IMMER VERURSACHT UND UNTER WELCHER
+VERPFLICHTUNG AUCH IMMER, OB IN VERTRAG, STRIKTER VERPFLICHTUNG ODER
+UNERLAUBTE HANDLUNG (INKLUSIVE FAHRLAESSIGKEIT) VERANTWORTLICH, AUF WELCHEM
+WEG SIE AUCH IMMER DURCH DIE BENUTZUNG DIESER SOFTWARE ENTSTANDEN SIND, SOGAR,
+WENN SIE AUF DIE MOEGLICHKEIT EINES SOLCHEN SCHADENS HINGEWIESEN WORDEN SIND.
+-->
+<!-- build with: mvn -U package assembly:single -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.elbosso.tools</groupId>
+  <artifactId>heissepreise-influx</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+    <!--scm>
+        <developerConnection>scm:git:https://github.com/<user>/<project>.git</developerConnection>
+    </scm-->
+    <properties>
+        <project.custom.encoding>UTF-8</project.custom.encoding>
+        <project.custom.java.version>17</project.custom.java.version>
+        <project.build.sourceEncoding>${project.custom.encoding}</project.build.sourceEncoding>
+        <project.build.outputEncoding>${project.custom.encoding}</project.build.outputEncoding>
+        <project.reporting.outputEncoding>${project.custom.encoding}</project.reporting.outputEncoding>
+        <project.main.class>de.elbosso.tools.heissepreiseinflux.HeissePreiseInfluxdbInterface</project.main.class>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <!--project.scm.id><scm-id in settings.xml></project.scm.id-->
+         <elbosso.artifacts.version>2.2.0-SNAPSHOT</elbosso.artifacts.version>
+    </properties>
+  <build>
+        <pluginManagement>
+            <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <preparationGoals>package assembly:single</preparationGoals>
+                </configuration>
+            </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${project.custom.java.version}</source>
+                        <!--target>${project.custom.java.version}</target-->
+                        <compilerVersion>${project.custom.java.version}</compilerVersion>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.3.0</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <mainClass>
+                                    ${project.main.class}
+                                </mainClass>
+                            </manifest>
+                            <!-- Needed if one wants to deploy the resulting jar via webstart -->
+                            <manifestEntries>
+                                <permissions>all-permissions</permissions>
+                            </manifestEntries>
+                        </archive>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+      <plugins>
+          <!-- to activate this plugin, you have to create a file changelog.mustache in the directory where the pom.xml is located with similar content to this:
+          # Changelog
+
+Changelog of this project.
+
+{{#tags}}
+ {{#issues}}
+  {{#hasIssue}}
+   {{#hasLink}}
+   {{/hasLink}}
+   {{^hasLink}}
+   {{/hasLink}}
+  {{/hasIssue}}
+  {{^hasIssue}}
+  {{/hasIssue}}
+
+  {{#commits}}
+**{{{messageTitle}}}**
+
+{{#messageBodyItems}}
+ * {{.}}
+{{/messageBodyItems}}
+
+[{{hash}}](https://github.com/<user>/<project>/commit/{{hash}}) {{authorName}} *{{commitTime}}*
+
+  {{/commits}}
+
+ {{/issues}}
+{{/tags}}
+
+          -->
+          <!-- https://github.com/tomasbjerre/git-changelog-maven-plugin/blob/master/git-changelog-maven-plugin-example/pom.xml -->
+          <!--plugin>
+            <groupId>se.bjurr.gitchangelog</groupId>
+            <artifactId>git-changelog-maven-plugin</artifactId>
+            <version>1.60</version>
+            <executions>
+              <execution>
+                <id>GenerateGitChangelogTemplateFromFileAndToken</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>git-changelog</goal>
+                </goals>
+                <configuration>
+                  <templateFile>changelog.mustache</templateFile>
+                  <readableTagName>-([^-]+?)$</readableTagName>
+                  <file>CHANGELOG.md</file>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin-->
+          <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>exec-maven-plugin</artifactId>
+              <version>1.2.1</version>
+              <executions>
+                  <execution>
+                      <goals>
+                          <goal>java</goal>
+                      </goals>
+                  </execution>
+              </executions>
+              <configuration>
+                  <mainClass>${project.main.class}</mainClass>
+                  <!--arguments>
+                      <argument>foo</argument>
+                      <argument>bar</argument>
+                  </arguments-->
+              </configuration>
+          </plugin>
+      </plugins>
+    </build>
+    <repositories>
+        <!--repository>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+            <id>EL BOSSO - SNAPSHOTS</id>
+            <name>Juergen Key</name>
+            <url>https://elbosso.github.io/maven2</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+            <id>EL BOSSO - RELEASES</id>
+            <name>Juergen Key</name>
+            <url>https://elbosso.github.io/maven2-releases</url>
+            <layout>default</layout>
+        </repository-->
+        <repository>
+            <id>repsy</id>
+            <name>EL BOSSOs (https://elbosso.github.io/index.html) Maven Repository on Repsy</name>
+            <url>https://repo.repsy.io/mvn/elbosso/default</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+		<!--BeanShell-->
+		<repository>
+		  <id>Boundless Repository</id>
+		  <url>	https://repo.boundlessgeo.com/main/</url>
+		</repository>
+    </repositories>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>de.elbosso</groupId>
+                <artifactId>bom</artifactId>
+                <version>${elbosso.artifacts.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.elbosso</groupId>
+            <artifactId>util</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/info.picocli/picocli -->
+        <dependency>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
+            <version>4.7.5</version>
+        </dependency>
+
+
+        <!-- Logging -->
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>pl.pragmatists</groupId>
+            <artifactId>JUnitParams</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+    <!--distributionManagement>
+        <repository>
+            <id>internal.repo</id>
+            <name>Internal repo</name>
+            <url>file:///tmp/</url>
+        </repository>
+    </distributionManagement-->
+</project>

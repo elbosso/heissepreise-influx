@@ -1,0 +1,28 @@
+          # Changelog
+
+Changelog of this project.
+
+{{#tags}}
+ {{#issues}}
+  {{#hasIssue}}
+   {{#hasLink}}
+   {{/hasLink}}
+   {{^hasLink}}
+   {{/hasLink}}
+  {{/hasIssue}}
+  {{^hasIssue}}
+  {{/hasIssue}}
+
+  {{#commits}}
+**{{{messageTitle}}}**
+
+{{#messageBodyItems}}
+ * {{.}}
+{{/messageBodyItems}}
+
+[{{hash}}](https://github.com/<user>/<project>>/commit/{{hash}}) {{authorName}} *{{commitTime}}*
+
+  {{/commits}}
+
+ {{/issues}}
+{{/tags}}
