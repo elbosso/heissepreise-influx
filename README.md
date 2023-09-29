@@ -11,7 +11,7 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/elbosso/ImageTagManager/issues)
 [![GitHub contributors](https://img.shields.io/github/contributors/elbosso/heissepreise-influx.svg)](https://GitHub.com/elbosso/ImageTagManager/graphs/contributors/)
 [![Github All Releases](https://img.shields.io/github/downloads/elbosso/heissepreise-influx/total.svg)](https://github.com/elbosso/ImageTagManager)
-[![Website elbosso.github.io](https://img.shields.io/website-up-down-green-red/https/elbosso.github.io.svg)](https://elbosso.github.io/)
+[![Website elbosso.github.io](https://img.shields.io/website-up-down-green-red/https/elbosso.github.io.svg)]([https://elbosso.github.io/](https://elbosso.github.io/supermarktpreisentwicklung_influxdb.html#content))
 
 ## Überblick
 
@@ -27,6 +27,9 @@ and then starting the resulting monolithic jar file by issuing
 ```
 $JAVA_HOME/bin/java -jar target/heissepreise-influx-<version>-jar-with-dependencies.jar
 ```
+## Hintergrund
+
+[Supermarktpreisentwicklung in InfluxDB](https://elbosso.github.io/supermarktpreisentwicklung_influxdb.html#content)
 
 ## Benutzung
 
