@@ -148,32 +148,10 @@ WENN SIE AUF DIE MOEGLICHKEIT EINES SOLCHEN SCHADENS HINGEWIESEN WORDEN SIND.
       </plugins>
     </build>
     <repositories>
-        <!--repository>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </releases>
-            <id>EL BOSSO - SNAPSHOTS</id>
-            <name>Juergen Key</name>
-            <url>https://elbosso.github.io/maven2</url>
-            <layout>default</layout>
-        </repository>
         <repository>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </releases>
-            <id>EL BOSSO - RELEASES</id>
-            <name>Juergen Key</name>
-            <url>https://elbosso.github.io/maven2-releases</url>
-            <layout>default</layout>
-        </repository-->
-        <repository>
-            <id>repsy</id>
-            <name>EL BOSSOs (https://elbosso.github.io/index.html) Maven Repository on Repsy</name>
-            <url>https://repo.repsy.io/mvn/elbosso/default</url>
+            <id>gitlab</id>
+            <name>EL BOSSOs (https://elbosso.github.io/index.html) Maven Repository</name>
+            <url>https://elbosso.gitlab.io/mvn/repository/</url>
         </repository>
         <repository>
             <id>central</id>

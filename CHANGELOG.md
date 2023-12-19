@@ -3,9 +3,15 @@
 Changelog of this project.
 
 
-**initial commit**
+**Update README.md**
+
+ * added documentation
+
+[85cc5df858a5625](https://github.com/elbosso/heissepreise-influx/commit/85cc5df858a5625) Jürgen Key *2023-09-27 15:01:50*
+
+**corrected meta information and made a start on documentation**
 
 
-[d5bda38f991451d](https://github.com/elbosso/heissepreise-influx/commit/d5bda38f991451d) Juergen Key *2023-09-27 11:39:20*
+[2e2fe0754b9a88c](https://github.com/elbosso/heissepreise-influx/commit/2e2fe0754b9a88c) Juergen Key *2023-09-27 11:44:53*
 
 
